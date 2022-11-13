@@ -1,7 +1,7 @@
 .tituloListagem {
     margin-left: 20px;
 }
-.listaAlunos {
+.listaCursos {
 margin-left: 20px;
 font-family:
 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'LucidaSans', Arial, sans-serif;
@@ -15,10 +15,10 @@ text-align: left;
 th, td {
 padding: 10px;
 }
-.tabTituloRa {
+.tabTituloCursoId {
 width: 100px;
 }
-.tabTituloNome {
+.tabTituloNomeCurso {
 width: 400px;
 }
 

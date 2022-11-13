@@ -29,6 +29,13 @@ input[type=text] {
     margin: 8px 0;
 }
 
+input[type=password] {
+    display: inline-block;
+    width: 20%;
+    padding: 12px;
+    margin: 8px 0;
+}
+
 input[type=number] {
     padding: 12px;
     width: 50px;

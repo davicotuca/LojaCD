@@ -2,23 +2,36 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import './CrudUsuario.css';
 import Main from '../template/Main';
+import UserService from '../../services/UserService';
     
         
 export default function CrudUsuario(){
 
     const [ID, setID] = useState (0)
     const [nome, setNome] = useState ('')
-    const [cargo, setCargo] = useState ('')
+    const [username, setUsername] = useState ('')
+    const [senha, setSenha] = useState ('')
+    const [role, setRole] = useState ('')
     const [Usuarios, setUsuarios] = useState([]); 
+    const [msg, setMsg] = useState([]);
 
     const urlAPI = 'http://localhost:5215/api/Usuario'
     
     useEffect(() => {
-        axios.get(urlAPI)
+        UserService.getUsuario()
             .then((response) => {
-                console.log(response.data)
                 setUsuarios(response.data);
-            });
+            },
+            (error) => {
+                const _msg =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                setMsg(_msg);
+            }
+        );
     }, []);
 
     useEffect(() => {
@@ -26,49 +39,50 @@ export default function CrudUsuario(){
     }, [Usuarios]);
 
     const saveAPIData = () => {
-        if (ID !== 0) {
-            const URL = urlAPI + '/' + ID
-            axios.put(URL, {
-                usuario: ID, nome, cargo
-            }).then(() => {
-                getData();
-            })
-         }
-        else {
-            axios.post(urlAPI, {
-                usuario: 0, nome, cargo
-            }).then(() => {
+        let usuarioParaPost = {usuario: ID, nome, username, senha, role}
+        UserService.postUsuario(ID, usuarioParaPost).then(() => {
                 getData();         
-            })
-        }
+        })
+        
     }
 
     const getData = () => {
-        axios.get(urlAPI)
+        UserService.getUsuario()
             .then((getData) => {
                 setUsuarios(getData.data);
+            },
+            (error) => {
+                const _msg =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                setMsg(_msg);
             })
     }
 
     const setData = (data) => {
-        let { id, nome, cargo } = data;
+        let { id, nome, username, senha, role } = data;
         setID(id);
         setNome(nome);
-        setCargo(cargo);
+        setUsername(username);
+        setSenha(senha);
+        setRole(role);
     }
 
-    const deleteAPIData = (id) => {
-        const URL = urlAPI + '/' + id
-        axios.delete(URL)
-        .then(() => {
-             getData();
+    const deleteUsuario = (id) => {
+        UserService.deleteUsuario(id).then(() => {
+            getData();
         })
     }
 
     const limpar = () => {
         setID(0);
         setNome('');
-        setCargo('');
+        setUsername('');
+        setSenha('');
+        setRole('');
     }
         
     return (
@@ -85,16 +99,38 @@ export default function CrudUsuario(){
                     value={nome}
                     onChange={ e => setNome(e.target.value)}
                 />
-                <label> Cargo: </label>
+                <label> Username: </label>
                 <input
-                    type="number"
-                    id="cargo"
-                    placeholder="0"
+                    type="text"
+                    id="username"
+                    placeholder="username"
                     className="form-input"
-                    name="cargo"
+                    name="username"
 
-                    value={cargo}
-                    onChange={ e => setCargo(e.target.value)}
+                    value={username}
+                    onChange={ e => setUsername(e.target.value)}
+                />
+                <label> Senha: </label>
+                <input
+                    type="password"
+                    id="senha"
+                    placeholder="senha"
+                    className="form-input"
+                    name="senha"
+
+                    value={senha}
+                    onChange={ e => setSenha(e.target.value)}
+                />
+                <label> Role: </label>
+                <input
+                    type="text"
+                    id="role"
+                    placeholder="role"
+                    className="form-input"
+                    name="role"
+
+                    value={role}
+                    onChange={ e => setRole(e.target.value)}
                 />
                 <button className="btnSalvar"
                     onClick={saveAPIData} >
@@ -110,7 +146,8 @@ export default function CrudUsuario(){
                 <thead>
                     <tr className="cabecTabela">
                         <th className="tabTituloNome">Nome</th>
-                        <th className="tabTituloCurso">Cargo</th>
+                        <th className="tabTituloCurso">Username</th>
+                        <th className="tabTituloCurso">Role</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -118,14 +155,15 @@ export default function CrudUsuario(){
                         return (
                         <tr key={data.id}>
                         <td>{data.nome}</td>
-                        <td>{data.cargo}</td>
+                        <td>{data.username}</td>
+                        <td>{data.role}</td>
                         <td>
                             <button id= {data.id} onClick={() => setData(data)}>
                                 Alter
                             </button>
                         </td>
                         <td>
-                            <button  onClick={() => deleteAPIData(data.id)}>
+                            <button  onClick={() => deleteUsuario(data.id)}>
                                 Remove
                             </button>
                         </td>

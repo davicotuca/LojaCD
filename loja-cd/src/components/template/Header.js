@@ -1,8 +1,9 @@
 import './Header.css';
+
 export default function Header(props) {
-    return (
+    return(
         <header className="header">
-            Cabeçalho
+            <h2>{props.title}</h2>
         </header>
     )
 }

@@ -1,184 +1,170 @@
-import React, { Component } from 'react';
+import { useEffect, useState } from "react";
 import axios from 'axios';
 import './CrudCd.css';
 import Main from '../template/Main';
+import UserService from '../../services/UserService';
 
-const title = "Cadastro de Alunos";
+export default function CrudCd() {
 
-const urlAPI = 'http://localhost:5215/api/aluno'
-const urlCursos = 'http://localhost:5215/api/curso'
-const initialState = {
-    aluno: { id: 0, ra: '', nome:'', codCurso: 0},
-    lista: [],
-    listaCursos: [],
-    }
+    const [ID, setID] = useState(0)
+    const [nome, setNome] = useState('')
+    const [artista, setArtista] = useState('')
+    const [genero, setGenero] = useState('')
+    const [ano, setAno] = useState('0000')
+    const [Cds, setCds] = useState([]);
+    const [msg, setMsg] = useState([]);
 
-export default class CrudCd extends Component {
+    const urlAPI = 'http://localhost:5215/api/CD'
 
-    state = { ...initialState }
+    useEffect(() => {
+        UserService.getCD().then(
+            (response) => {
+                setCds(response.data);
+                setMsg(null);
+            },
+            (error) => {
+                const _msg =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                setMsg(_msg);
+            }
+        );
+    }, []);
 
+    useEffect(() => {
+        limpar()
+    }, [Cds]);
 
-    componentDidMount() {
-        console.log('1');
-        axios(urlAPI).then(resp => {
-            this.setState({ lista: resp.data })
-        });
-        axios(urlCursos).then(resp => {
-            this.setState({ listaCursos: resp.data })
-        });
-    }
-
-    limpar() {
-        this.setState({ aluno: initialState.aluno });
-    }
-    
-    salvar() {
-        const aluno = this.state.aluno;
-        aluno.codCurso = Number(aluno.codCurso);
-        const metodo = aluno.id ? 'put' : 'post';
-        const url = aluno.id ? `${urlAPI}/${aluno.id}` : urlAPI;
-        
-        axios[metodo](url, aluno)
-        .then(resp => {
-            const lista = this.getListaAtualizada(resp.data)
-            this.setState({ aluno: initialState.aluno, lista })
+    const saveAPIData = () => {
+        let cdParaPost = {cd: ID, nome, artista, genero, ano}
+        UserService.postCD(ID, cdParaPost).then(() => {
+            getData();
         })
     }
 
-    getListaAtualizada(aluno, add = true) {
-        const lista = this.state.lista.filter(a => a.id !== aluno.id);
-        if (add) lista.unshift(aluno);
-        return lista;
-    }
-    
-    atualizaCampo(event) {
-        const aluno = { ...this.state.aluno };
-        aluno[event.target.name] = event.target.value;
-        this.setState({ aluno });
-    }
-
-    carregar(aluno) {
-        this.setState({ aluno })
-    }
-    remover(aluno) {
-        const url = urlAPI + "/" + aluno.id;
-        if (window.confirm("Confirma remoção do aluno: " + aluno.ra)) {
-            console.log("entrou no confirm");
-            axios['delete'](url, aluno)
-            .then(resp => {
-                const lista = this.getListaAtualizada(aluno, false)
-                this.setState({ aluno: initialState.aluno, lista })
+    const getData = () => {
+        axios.get(urlAPI)
+            .then((getData) => {
+                setCds(getData.data);
             })
-        }
     }
 
-    getCurso(event) {
-        const aluno = { ...this.state.aluno };
-        const curso = "curso";
-        aluno[curso] = event.target.value;
-        this.setState({ aluno })
+    const setData = (data) => {
+        let { id, nome, artista, genero, ano } = data;
+        setID(id);
+        setNome(nome);
+        setArtista(artista);
+        setGenero(genero);
+        setAno(ano);
     }
 
-    renderForm() {
-        return (
+    const deleteCd = (id) => {
+        UserService.deleteCD(id).then(() => {
+                getData();
+            })
+    }
+
+    const limpar = () => {
+        setID(0);
+        setNome('');
+        setArtista('');
+        setGenero('');
+        setAno('0000');
+    }
+
+    return (
+        <Main>
             <div className="inclui-container">
-                <label> RA: </label>
-                <input
-                    type="text"
-                    id="ra"
-                    placeholder="RA do aluno"
-                    className="form-input"
-                    name="ra"
-
-                    value={this.state.aluno.ra}
-
-                    onChange={ e => this.atualizaCampo(e)}
-                />
                 <label> Nome: </label>
                 <input
                     type="text"
                     id="nome"
-                    placeholder="Nome do aluno"
+                    placeholder="Nome"
                     className="form-input"
                     name="nome"
 
-                    value={this.state.aluno.nome}
-
-                    onChange={ e => this.atualizaCampo(e)}
+                    value={nome}
+                    onChange={e => setNome(e.target.value)}
                 />
-                
-
-                <label> Código do Curso: </label>
-                <select 
-                    id="codCurso"
-                    name="codCurso"
+                <label> Artista: </label>
+                <input
+                    type="text"
+                    id="artista"
+                    placeholder="Artista"
                     className="form-input"
-                    
-                    value={this.state.aluno.codCurso}
-                    
-                    onChange={e => this.atualizaCampo(e)}>
-                
-                    {this.state.listaCursos.map(
-                        (curso) =>
-                            <option key={curso.id} value={curso.codCurso}>{curso.nomeCurso}</option>
-                        )}
-                </select>
-                
+                    name="artista"
+
+                    value={artista}
+                    onChange={e => setArtista(e.target.value)}
+                />
+                <label> Genero: </label>
+                <input
+                    type="text"
+                    id="genero"
+                    placeholder="Genero"
+                    className="form-input"
+                    name="genero"
+
+                    value={genero}
+                    onChange={e => setGenero(e.target.value)}
+                />
+                <label> Ano: </label>
+                <input
+                    type="text"
+                    id="ano"
+                    placeholder="Ano"
+                    className="form-input"
+                    name="ano"
+
+                    value={ano}
+                    onChange={e => setAno(e.target.value)}
+                />
                 <button className="btnSalvar"
-                    onClick={e => this.salvar(e)} >
+                    onClick={saveAPIData} >
                     Salvar
                 </button>
                 <button className="btnCancelar"
-                    onClick={e => this.limpar(e)} >
+                    onClick={limpar} >
                     Cancelar
                 </button>
-            </div>
-    )
-}
 
-    renderTable() {
-        return (
-        <div className="listagem">
-            <table className="listaAlunos" id="tblListaAlunos">
-                <thead>
-                    <tr className="cabecTabela">
-                        <th className="tabTituloRa">Ra</th>
-                        <th className="tabTituloNome">Nome</th>
-                        <th className="tabTituloCurso">Curso</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.state.lista.map(
-                        (aluno) =>
 
-                        <tr key={aluno.id}>
-                            <td>{aluno.ra}</td>
-                            <td>{aluno.nome}</td>
-                            <td>{aluno.codCurso}</td>
-                            <td>
-                                <button onClick={() => this.carregar(aluno)} >
-                                    Altera
-                                </button>
-                            </td>
-                            <td>
-                                <button onClick={() => this.remover(aluno)} >
-                                    Remove
-                                </button>
-                            </td>
+                <table className="listaCursos" id="tblListaCursos">
+                    <thead>
+                        <tr className="cabecTabela">
+                            <th className="tabTituloNome">Nome</th>
+                            <th className="tabTituloCurso">Artista</th>
+                            <th className="tabTituloCurso">Genero</th>
+                            <th className="tabTituloCurso">Ano</th>
                         </tr>
-                    )}
-                </tbody>
-            </table>
-        </div>
-        )
-    }
-
-    render() {
-        return (
-            <Main title={title}>
-                {this.renderForm()}
-                {this.renderTable()}
-            </Main>
-        )
-    }
+                    </thead>
+                    <tbody>
+                        {Cds.map((data) => {
+                            return (
+                                <tr key={data.id}>
+                                    <td>{data.nome}</td>
+                                    <td>{data.artista}</td>
+                                    <td>{data.genero}</td>
+                                    <td>{data.ano}</td>
+                                    <td>
+                                        <button id={data.id} onClick={() => setData(data)}>
+                                            Alter
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button onClick={() => deleteCd(data.id)}>
+                                            Remove
+                                        </button>
+                                    </td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        </Main>
+    )
 }
