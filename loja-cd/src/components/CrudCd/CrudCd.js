@@ -76,7 +76,7 @@ export default function CrudCd() {
     }
 
     return (
-        <Main>
+        <Main title="Cadastro de CDs">
             <div className="inclui-container">
                 <table className="form">
                     <tr>

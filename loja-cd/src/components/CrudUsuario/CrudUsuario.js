@@ -84,7 +84,7 @@ export default function CrudUsuario(){
     }
         
     return (
-        <Main>
+        <Main title="Cadastro de Usuários">
             <div className="inclui-container">
                 <table className="form">
                     <tr>

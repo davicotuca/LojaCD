@@ -19,7 +19,7 @@ export default function Catalogo(){
 
     return(
 
-        <Main>
+        <Main title="Catálogo">
             <table className="catalogo">
                 {listaCds.map((cd) => {
                         return (
