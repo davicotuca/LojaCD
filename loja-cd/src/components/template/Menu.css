@@ -1,17 +1,18 @@
 nav.menu {
-    background-color: var(--bg-menu);
+    background-color: #e4e4e4;
     text-align: right;
 }
 
 .menu a {
+    font-family: "Abril Fatface";
     text-decoration: none;
     color: #000;
     padding: 10px;
-    font-size: 30px;
-    padding: 5px;
+    font-size: 40px;
+    padding: 15px;
     margin-top: 20px;
 }
 
 .menu a:hover {
-    color: #538cc6;
+    color: #8c3831;
 }

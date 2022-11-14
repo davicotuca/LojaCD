@@ -20,17 +20,21 @@ export default function Catalogo(){
     return(
 
         <Main>
-            {listaCds.map((cd) => {
-                    return (
-                        <div class="card">
-                            <img src={require(`../../assets/cds/${cd.nome}.png`)} alt="Avatar"/>
-                            <div class="container">
-                                <h4><b>{cd.nome}</b></h4>
-                                <p>{cd.artista}</p>
+            <table className="catalogo">
+                {listaCds.map((cd) => {
+                        return (
+                            <div class="card">
+                                <img src={require(`../../assets/cds/${cd.nome}.png`)} alt="Avatar"/>
+                                <div class="container">
+                                    <h4><b>{cd.nome}</b></h4>
+                                    <p>{cd.artista}</p>
+                                </div>
                             </div>
-                        </div>
-                    )
-                })}
+                        )
+                    })
+                }
+            </table>
+            
         </Main>
     )
 }

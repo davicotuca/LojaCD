@@ -78,50 +78,66 @@ export default function CrudCd() {
     return (
         <Main>
             <div className="inclui-container">
-                <label> Nome: </label>
-                <input
-                    type="text"
-                    id="nome"
-                    placeholder="Nome"
-                    className="form-input"
-                    name="nome"
+                <table className="form">
+                    <tr>
+                        <td>
+                            <label> Nome: </label>
+                            <input
+                                type="text"
+                                id="nome"
+                                placeholder="Nome"
+                                className="form-input"
+                                name="nome"
 
-                    value={nome}
-                    onChange={e => setNome(e.target.value)}
-                />
-                <label> Artista: </label>
-                <input
-                    type="text"
-                    id="artista"
-                    placeholder="Artista"
-                    className="form-input"
-                    name="artista"
+                                value={nome}
+                                onChange={e => setNome(e.target.value)}
+                            />
+                        </td>
+                        <td>
+                            <label> Artista: </label>
+                            <input
+                                type="text"
+                                id="artista"
+                                placeholder="Artista"
+                                className="form-input"
+                                name="artista"
 
-                    value={artista}
-                    onChange={e => setArtista(e.target.value)}
-                />
-                <label> Genero: </label>
-                <input
-                    type="text"
-                    id="genero"
-                    placeholder="Genero"
-                    className="form-input"
-                    name="genero"
+                                value={artista}
+                                onChange={e => setArtista(e.target.value)}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label> Genero: </label>
+                            <input
+                                type="text"
+                                id="genero"
+                                placeholder="Genero"
+                                className="form-input"
+                                name="genero"
 
-                    value={genero}
-                    onChange={e => setGenero(e.target.value)}
-                />
-                <label> Ano: </label>
-                <input
-                    type="text"
-                    id="ano"
-                    placeholder="Ano"
-                    className="form-input"
-                    name="ano"
+                                value={genero}
+                                onChange={e => setGenero(e.target.value)}
+                            />
+                        </td>
+                        <td>
+                            <label> Ano: </label>
+                            <input
+                                type="text"
+                                id="ano"
+                                placeholder="Ano"
+                                className="form-input"
+                                name="ano"
 
-                    value={ano}
-                    onChange={e => setAno(e.target.value)}
-                />
+                                value={ano}
+                                onChange={e => setAno(e.target.value)}
+                            />
+                        </td>
+                    </tr>
+                </table>
+                
+                
                 <button className="btnSalvar"
                     onClick={saveAPIData} >
                     Salvar
@@ -135,10 +151,10 @@ export default function CrudCd() {
                 <table className="listaCursos" id="tblListaCursos">
                     <thead>
                         <tr className="cabecTabela">
-                            <th className="tabTituloNome">Nome</th>
-                            <th className="tabTituloCurso">Artista</th>
-                            <th className="tabTituloCurso">Genero</th>
-                            <th className="tabTituloCurso">Ano</th>
+                            <th className="tituloNome">Nome</th>
+                            <th className="tituloNome">Artista</th>
+                            <th className="tituloGenero">Genero</th>
+                            <th className="tituloAno">Ano</th>
                         </tr>
                     </thead>
                     <tbody>

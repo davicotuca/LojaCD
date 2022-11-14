@@ -4,7 +4,10 @@
     transition: 0.3s;
     width: 200px;
     text-align: center;
+    padding: 5px;
+    margin: 10px;
     float: left;
+    height: 330px;
   }
   
   /* On mouse-over, add a deeper shadow */
@@ -19,4 +22,8 @@
 
   img {
     width: 100%;
+  }
+
+  .catalogo {
+    padding: 10px;
   }

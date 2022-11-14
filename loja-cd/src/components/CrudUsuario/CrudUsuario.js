@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from 'axios';
 import './CrudUsuario.css';
 import Main from '../template/Main';
 import UserService from '../../services/UserService';
@@ -15,7 +14,6 @@ export default function CrudUsuario(){
     const [Usuarios, setUsuarios] = useState([]); 
     const [msg, setMsg] = useState([]);
 
-    const urlAPI = 'http://localhost:5215/api/Usuario'
     
     useEffect(() => {
         UserService.getUsuario()
@@ -88,50 +86,65 @@ export default function CrudUsuario(){
     return (
         <Main>
             <div className="inclui-container">
-                <label> Nome: </label>
-                <input
-                    type="text"
-                    id="nome"
-                    placeholder="Nome"
-                    className="form-input"
-                    name="nome"
+                <table className="form">
+                    <tr>
+                        <td>
+                            <label> Nome: </label>
+                            <input
+                                type="text"
+                                id="nome"
+                                placeholder="Nome"
+                                className="form-input"
+                                name="nome"
 
-                    value={nome}
-                    onChange={ e => setNome(e.target.value)}
-                />
-                <label> Username: </label>
-                <input
-                    type="text"
-                    id="username"
-                    placeholder="username"
-                    className="form-input"
-                    name="username"
+                                value={nome}
+                                onChange={ e => setNome(e.target.value)}
+                            />
+                        </td>
+                        <td>
+                            <label> Username: </label>
+                            <input
+                                type="text"
+                                id="username"
+                                placeholder="username"
+                                className="form-input"
+                                name="username"
 
-                    value={username}
-                    onChange={ e => setUsername(e.target.value)}
-                />
-                <label> Senha: </label>
-                <input
-                    type="password"
-                    id="senha"
-                    placeholder="senha"
-                    className="form-input"
-                    name="senha"
+                                value={username}
+                                onChange={ e => setUsername(e.target.value)}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label> Senha: </label>
+                            <input
+                                type="password"
+                                id="senha"
+                                placeholder="senha"
+                                className="form-input"
+                                name="senha"
 
-                    value={senha}
-                    onChange={ e => setSenha(e.target.value)}
-                />
-                <label> Role: </label>
-                <input
-                    type="text"
-                    id="role"
-                    placeholder="role"
-                    className="form-input"
-                    name="role"
+                                value={senha}
+                                onChange={ e => setSenha(e.target.value)}
+                            />
+                        </td>
+                        <td>
+                            <label> Role: </label>
+                            <input
+                                type="text"
+                                id="role"
+                                placeholder="role"
+                                className="form-input"
+                                name="role"
 
-                    value={role}
-                    onChange={ e => setRole(e.target.value)}
-                />
+                                value={role}
+                                onChange={ e => setRole(e.target.value)}
+                            />
+                        </td>
+                    </tr>
+                </table>
+                
                 <button className="btnSalvar"
                     onClick={saveAPIData} >
                     Salvar
@@ -145,9 +158,9 @@ export default function CrudUsuario(){
                 <table className="listaCursos" id="tblListaCursos">
                 <thead>
                     <tr className="cabecTabela">
-                        <th className="tabTituloNome">Nome</th>
-                        <th className="tabTituloCurso">Username</th>
-                        <th className="tabTituloCurso">Role</th>
+                        <th className="tituloNome">Nome</th>
+                        <th className="tituloNome">Username</th>
+                        <th className="tituloRole">Role</th>
                     </tr>
                 </thead>
                 <tbody>

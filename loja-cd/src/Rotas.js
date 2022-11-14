@@ -12,10 +12,13 @@ import Logout from './components/Logout/Logout';
 
 export default function Rotas() {
     const [currentUser, setCurrentUser] = useState(undefined);
+    const [currentRole, setCurrentRole] = useState(undefined);
     useEffect(() => {
         const user = AuthService.getCurrentUser();
         if (user) {
+            const role = AuthService.getCurrentUser().user.role;
             setCurrentUser(user);
+            setCurrentRole(role);
         }
     }, []);
     return (
@@ -39,7 +42,7 @@ export default function Rotas() {
                     }
                 />
             )}
-            {currentUser === "gerente" ? (
+            {currentRole === "gerente" ? (
                 <Route exact path='/usuarios'
                     element={<CrudUsuario />
                     }
