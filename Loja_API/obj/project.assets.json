@@ -2879,24 +2879,31 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\doc_d\\.nuget\\packages\\": {}
+    "C:\\Users\\natas\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Davi\\Cotuca\\Patricia\\Loja_API\\Loja_API.csproj",
+      "projectUniqueName": "C:\\Users\\natas\\Documents\\COTUCA\\4S\\DS402-projeto-final\\LojaCD\\Loja_API\\Loja_API.csproj",
       "projectName": "Loja_API",
-      "projectPath": "C:\\Davi\\Cotuca\\Patricia\\Loja_API\\Loja_API.csproj",
-      "packagesPath": "C:\\Users\\doc_d\\.nuget\\packages\\",
-      "outputPath": "C:\\Davi\\Cotuca\\Patricia\\Loja_API\\obj\\",
+      "projectPath": "C:\\Users\\natas\\Documents\\COTUCA\\4S\\DS402-projeto-final\\LojaCD\\Loja_API\\Loja_API.csproj",
+      "packagesPath": "C:\\Users\\natas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\natas\\Documents\\COTUCA\\4S\\DS402-projeto-final\\LojaCD\\Loja_API\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\doc_d\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\natas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2951,7 +2958,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }
